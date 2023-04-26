@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,14 +23,15 @@ func RequireAuth(c *gin.Context) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
-
+	fmt.Print(token)
 	var image models.Image
-	err = connectDB.DB.Where("ID = ?", token).First(&image).Error
+	err = connectDB.DB.Table("users").Where("ID = ?", token).First(&image).Error
 	if err != nil || image.ID == "" {
+		fmt.Print(err)
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
-	c.Set("image", image)
+	c.Set("id", token)
 
 	c.Next()
 }

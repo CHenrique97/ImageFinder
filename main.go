@@ -6,7 +6,9 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	connectDB "github.com/imagefinder/connect"
+	"github.com/imagefinder/controllers"
 	"github.com/imagefinder/initializers"
+	"github.com/imagefinder/middleware"
 )
 
 func init() {
@@ -25,9 +27,9 @@ func main() {
 		c.String(200, "Hello World")
 	})
 
-	r.GET("/getImage", controllers.GetImage, controllers.Validate)
-	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
-	r.POST("/postImage", controllers.PostImage, controllers.Validate)
+	r.GET("/getImage", middleware.RequireAuth, controllers.GetImage)
+	r.GET("/migrate", middleware.RequireAuth, controllers.Create)
+	r.POST("/postImage", middleware.RequireAuth, controllers.PostImage)
 	r.Run(":" + os.Getenv("PORT"))
 
 }
