@@ -1,0 +1,48 @@
+
+syntax = "proto3";
+
+
+package imageFinder;
+
+option go_package = "./models";
+
+service ImageService {
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc GetImage(GetImageRequest) returns (GetImageResponse) {}
+  rpc PostImage(PostImageRequest) returns (PostImageResponse) {}
+}
+
+message CreateRequest {
+  string ID = 1;
+  string Image = 2;
+}
+
+message CreateResponse {
+  string ID = 1;
+  string Image = 2;
+}
+
+message GetImageRequest {
+  string ID = 1;
+  string Image = 2;
+}
+
+message GetImageResponse {
+  string ID = 1;
+  string Image = 2;
+}
+
+message PostImageRequest {
+  string ID = 1;
+  string Image = 2;
+}
+
+message PostImageResponse {
+  string ID = 1;
+  string Image = 2;
+}
+
+message Image {
+  string ID = 1;
+  string Image = 2;
+}

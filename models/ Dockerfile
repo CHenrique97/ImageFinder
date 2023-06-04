@@ -1,0 +1,18 @@
+# Use a Golang base image
+FROM golang:latest
+
+# Set the working directory
+WORKDIR /
+
+# Copy the .proto file to the working directory
+COPY ./imageFinder.proto .
+
+# Install the protoc compiler
+RUN apt-get update && apt-get install -y protobuf-compiler
+
+# Generate the Go code from the .proto file
+RUN protoc --go_out=. --go-grpc_out=. your.proto
+
+
+# Set the CMD to run when the container starts
+CMD ["echo", "Proto files generated successfully!"]
